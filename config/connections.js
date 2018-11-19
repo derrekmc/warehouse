@@ -31,7 +31,12 @@ module.exports.connections = {
   localDiskDb: {
     adapter: 'sails-disk'
   },
-
+  
+  mainMongoDB: {
+    adapter: 'sails-mongo',
+    url: process.env.MONGODB_URL,
+    auto_reconnect: true
+  },
   /***************************************************************************
   *                                                                          *
   * MySQL is the world's most popular relational database.                   *
