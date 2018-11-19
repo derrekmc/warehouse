@@ -1,0 +1,92 @@
+<div class="container">
+  <hr></hr>
+
+  <div id="warehouseController">
+    <div class="container">
+
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>
+            Add Inventory
+          </h3>
+
+
+
+        </div>
+      </div> <!-- / row -->
+
+
+      <!-- Warehouse-->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="warehouse">Warehouse</label>
+            <input type="text" class="form-control" value="" v-model="warehouse" />
+          </div>
+        </div>
+      </div>
+      <!-- / row -->
+
+      <!-- UPC-->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="upc">UPC</label>
+            <input type="text" class="form-control" value="" v-model="upc" />
+          </div>
+        </div>
+      </div>
+      <!-- / row -->
+
+      <!-- Quantity-->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="text" class="form-control" value="" v-model="quantity" />
+          </div>
+        </div>
+      </div>
+      <!-- / row -->
+
+
+
+      <div class="row">
+        <div class="col-sm-12">
+          <a href="#" class="btn btn-success" @click="addInventory">Add Inventory</a>
+          <span v-if="processing">Please Wait ...</span>
+          <span v-if="status">{{ $data.status }}</span>
+        </div>
+      </div> <!-- / row -->
+
+      <br><br>
+      <a v-bind:href="'/warehouse/' + warehouse">< back</a>
+
+
+
+      <div>&nbsp;</div>
+
+      <div v-if="status == 'OK'" class="container">
+        <p class="alert alert-success text-center">Inventory Added </p>
+      </div>
+
+      <div class="row" v-if="debug">
+        <div class="col-sm-12">
+          <pre>{{ $data }}</pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  setTimeout(function () {
+    window.dispatchEvent(new CustomEvent('warehouse_params', {
+      detail: {
+        warehouse: Number(<%= warehouse%>)
+      }
+    }));
+  }, 0);
+</script>

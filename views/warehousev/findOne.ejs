@@ -1,0 +1,52 @@
+<div class="container">
+  <hr></hr>
+
+  <div id="warehouseController">
+    <div class="container">
+
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>
+            {{name}} Warehouse
+          </h3>
+          <p>Inventory Aggregation should go here</p>
+          <ul>
+          <li v-for="item in inventory">
+            <div class="col-sm-6" >UPC: {{ item.upc }}</div><div class="col-sm-6">{{ item.status }}: {{ item.count }}</div>
+          </li>
+          </ul>
+          <a v-bind:href="'/warehouse/' + warehouse + '/addInventory'"class="btn btn-success" >Add Inventory</a>
+          <!--<a v-bind:href="'/order/placeOrder'" class="btn btn-info">Place Order</a>-->
+          <a v-bind:href="'/warehouse/' + warehouse + '/placeOrder'" class="btn btn-info" >Place Order</a>
+          <a v-bind:href="'/warehouse/' + warehouse + '/openOrders'" class="btn btn-primary" >View Open Orders</a>
+
+          <br><br>
+          <a href="/">< back</a>
+
+        </div>
+      </div>
+
+
+  </div>
+
+</div>
+</div>
+
+<script>
+  setTimeout(function () {
+
+    window.dispatchEvent(new CustomEvent('warehouse_getInventory', {
+      detail: {
+        warehouse: Number(<%= warehouse%>)
+      }
+    }));
+
+    window.dispatchEvent(new CustomEvent('warehouse_findOne', {
+      detail: {
+        warehouse: Number(<%= warehouse%>)
+      }
+    }));
+
+  }, 0);
+</script>

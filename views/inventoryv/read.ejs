@@ -1,0 +1,56 @@
+<div class="container">
+  <hr></hr>
+
+  <div id="inventoryController">
+    <div class="container">
+
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>
+            Add Inventory
+          </h3>
+
+          <ul id="example-1">
+            <li v-for="item in items">
+              {{ item.name }}
+            </li>
+          </ul>
+
+        </div>
+      </div> <!-- / row -->
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>
+            Create Warehouse
+          </h3>
+
+        </div>
+      </div> <!-- / row -->
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="domain">Name</label>
+            <input type="text" class="form-control" value="" v-model="name" />
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <a href="#" class="btn btn-success" @click="create">Create Warehouse</a>
+          <span v-if="processing">Please Wait ...</span>
+          <span v-if="status == 'Created'">{{ $data.status }}</span>
+        </div>
+      </div> <!-- / row -->
+
+      <div>&nbsp;</div>
+
+      <div class="row" v-if="debug">
+        <div class="col-sm-12">
+          <pre>{{ $data }}</pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<br>
+<div class="container">
+
+  <div id="warehouseController">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>
+            Create Warehouse
+          </h1>
+
+        </div>
+      </div> <!-- / row -->
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="domain">Name</label>
+            <input type="text" class="form-control" value="" v-model="name" />
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <a href="#"
+             class="btn btn-success"
+             @click="create"
+             @keyup.enter="create">Create Warehouse</a>
+
+          <br><br>
+          <a href="/">< back</a><br><br>
+
+          <span v-if="processing">Please Wait ...</span>
+          <span v-if="status == 'Created'">{{ $data.status }} Warehouse ID: {{ $data.id }}</span>
+          <span v-if="error">{{ $data.error }}</span>
+
+        </div>
+      </div> <!-- / row -->
+
+      <div>&nbsp;</div>
+
+      <div class="row" v-if="debug">
+        <div class="col-sm-12">
+          <pre>{{ $data }}</pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,3 +1,5 @@
-# warehouse
-
-a [Sails](http://sailsjs.org) application
+## Warehouse API
+``
+npm install
+npm start
+``

@@ -1,0 +1,54 @@
+<div class="container">
+  <hr></hr>
+
+  <div id="warehouseController">
+    <div class="container">
+
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>
+            View Order Details
+          </h3>
+
+          <p>UPC's on this order</p>
+          <ul id="example-1">
+            <li v-for="item in items">
+              <!--<a v-bind:href="'?name=' + item.name">{{ item.name }}</a>-->
+
+              UPC #{{ item.upc }} Status: {{ item.status }}
+            </li>
+          </ul>
+          Order Status: {{ order.status }}
+          <br>
+          <br>
+
+
+          <a href="#" class="btn btn-success" @click="shipOrder">Ship Order</a>
+
+          <br><br>
+          <a v-bind:href="'/warehouse/' + warehouse">< back</a>
+        </div>
+      </div> <!-- / row -->
+
+      <div v-if="order.status == 'shipped'" class="container">
+        <p class="alert alert-success text-center">Order ID: {{ response.body.id }} Shipped </p>
+      </div>
+
+      <div v-if="error" class="container">
+        <p class="alert alert-danger text-center">Error {{ error }}</p>
+      </div>
+  </div>
+</div>
+</div>
+
+<script>
+  setTimeout(function () {
+    window.dispatchEvent(new CustomEvent('warehouse_viewOrder', {
+      detail: {
+        warehouse: Number(<%= warehouse%>),
+        order: Number(<%= order%>)
+      }
+    }));
+  }, 0);
+</script>

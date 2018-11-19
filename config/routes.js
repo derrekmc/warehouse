@@ -31,10 +31,131 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
-
-  '/': {
-    view: 'homepage'
-  }
+  
+  /**
+   * Warehouse Views
+   */
+    '/': {
+      view: 'homepage'
+    },
+    'get /warehouse/create': function(req, res){
+      res.view('warehousev/create', req.params);
+    },
+    'get /warehouse/:warehouse': function(req, res){
+      res.view('warehousev/findOne', req.params);
+    },
+  
+  /**
+   * Warehouse API
+   */
+    'get /api/warehouse/:warehouse/quantity': 'WarehouseController.quantity',
+   
+  
+  /**
+   * Inventory Views
+   */
+    'get /warehouse/:warehouse/addInventory': function(req, res){
+      res.view('inventoryv/addInventory', req.params);
+    },
+  
+  /**
+   * Inventory API
+   */
+    'post /api/addInventory': 'InventoryController.addInventory',
+  
+  
+  /**
+   * Order Views
+   */
+    'get /warehouse/:warehouse/placeOrder': function(req, res){
+      res.view('orderv/placeOrder', req.params);
+    },
+    'get /warehouse/:warehouse/openOrders': function(req, res){
+      res.view('orderv/openOrders', req.params);
+    },
+    'get /warehouse/:warehouse/order/:order': function(req, res){
+      res.view('orderv/viewOrder', req.params);
+    },
+  
+  /**
+   * Orders API
+   */
+    'post /api/placeOrder': 'OrderController.placeOrder',
+    'post /api/order/:orderId/shipOrder': 'OrderController.shipOrder',
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  //
+  // '/warehouses/create': {
+  //   view: 'warehouse'
+  // },
+  //
+  // // '/warehouses/create': 'WarehouseController.create',
+  //
+  //
+  // 'get /inventory': {
+  //   controller: 'InventoryController'
+  //
+  // },
+  //
+  // 'get /inventory/create': {
+  //   controller: 'InventoryController.create'
+  // },
+  //
+  // // 'get /inventory/update': {
+  // //   controller: 'InventoryController.update'
+  // // },
+  //
+  // '/orders': {
+  //   view: 'orders',
+  //
+  //     locals:{
+  //       warehouse: "weee"
+  //     }
+  // },
+  //
+  // 'GET /order?where={name:"w"}': {
+  //   view: 'orders',
+  //   locals:{
+  //     warehouse: "weee"
+  //   }
+  // }
 
   /***************************************************************************
   *                                                                          *
