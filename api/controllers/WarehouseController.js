@@ -97,7 +97,7 @@ module.exports = {
           });
       
         }
-        result.warehouse = warehouseData
+        result.warehouse = warehouseData;
         
         res.ok(result);
       });

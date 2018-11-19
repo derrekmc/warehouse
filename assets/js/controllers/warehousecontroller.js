@@ -72,7 +72,7 @@ let warehouseController = new Vue({
           console.log(data);
           this.status = data.statusText;
           this.items = data.body.products;
-          this.name = data.body.name
+          this.name = data.body.name;
           this.processing = false;
         });
     },
@@ -172,7 +172,7 @@ let warehouseController = new Vue({
           this.order = data.body;
           this.status = data.statusText;
           this.items = data.body.products;
-          this.name = data.body.name
+          this.name = data.body.name;
           this.processing = false;
         });
     },
