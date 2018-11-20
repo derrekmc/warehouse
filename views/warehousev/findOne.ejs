@@ -38,13 +38,13 @@
 
     window.dispatchEvent(new CustomEvent('warehouse_getInventory', {
       detail: {
-        warehouse: Number(<%= warehouse%>)
+        warehouse: "<%= warehouse%>"
       }
     }));
 
     window.dispatchEvent(new CustomEvent('warehouse_findOne', {
       detail: {
-        warehouse: Number(<%= warehouse%>)
+        warehouse: "<%= warehouse%>"
       }
     }));
 

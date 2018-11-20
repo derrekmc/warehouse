@@ -46,8 +46,8 @@
   setTimeout(function () {
     window.dispatchEvent(new CustomEvent('warehouse_viewOrder', {
       detail: {
-        warehouse: Number(<%= warehouse%>),
-        order: Number(<%= order%>)
+        warehouse: "<%= warehouse%>",
+        order: "<%= order%>"
       }
     }));
   }, 0);

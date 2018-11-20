@@ -84,7 +84,7 @@
   setTimeout(function () {
     window.dispatchEvent(new CustomEvent('warehouse_params', {
       detail: {
-        warehouse: Number(<%= warehouse%>)
+        warehouse: "<%= warehouse%>"
       }
     }));
   }, 0);

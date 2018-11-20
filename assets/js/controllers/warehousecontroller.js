@@ -218,3 +218,5 @@ window.addEventListener('warehouse_getInventory', warehouseController.getInvento
 window.addEventListener('warehouse_addInventory', warehouseController.addInventory);
 window.addEventListener('warehouse_placeOrder', warehouseController.placeOrder);
 window.addEventListener('warehouse_create', warehouseController.create);
+
+warehouseController.list();
