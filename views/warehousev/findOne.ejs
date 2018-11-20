@@ -34,7 +34,7 @@
 </div>
 
 <script>
-  setTimeout(function () {
+  document.addEventListener("DOMContentLoaded", function(event) {
 
     window.dispatchEvent(new CustomEvent('warehouse_getInventory', {
       detail: {
@@ -48,5 +48,5 @@
       }
     }));
 
-  }, 0);
+  };
 </script>

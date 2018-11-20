@@ -31,11 +31,11 @@
 </div>
 
 <script>
-  setTimeout(function () {
+  document.addEventListener("DOMContentLoaded", function(event) {
     window.dispatchEvent(new CustomEvent('warehouse_openOrders', {
       detail: {
-        warehouse: "<%= warehouse%>"
+        warehouse: "<%= warehouse %>"
       }
     }));
-  }, 0);
+  });
 </script>
