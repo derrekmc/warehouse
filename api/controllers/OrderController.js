@@ -53,7 +53,9 @@ module.exports = {
     
     // ES6 =/ -- Heroku production server needs an upgrade to ES6 falling back to es5 for now
     // let availableProducts = await Product.find(req.body.products);
-    
+    req.body.products = req.body.products.filter(function(element){
+      return element.upc
+    });
     Warehouse
       .findOne(req.body.warehouse)
 
@@ -72,6 +74,7 @@ module.exports = {
       .then(function(warehouse) {
         return Promise.each(req.body.products, function (product) {
           sails.log.verbose("Product:", product);
+          
           return Product
             .count({
               upc: product.upc,
@@ -90,28 +93,41 @@ module.exports = {
         * Loop through products and set available orders to reserved
         */
         .then(function() {
-         return Promise.map(req.body.products, function(product) {
-           return Product
-             .update({
-                 upc: product.upc,
-                 status: "available",
-                 warehouse: req.body.warehouse
-               },
-               {
-                 status: "reserved"
-               })
-             .limit(product.quantity)
-             .then(function (p) {
-               return p
-             })
-         });
+          
+          return Promise.each(req.body.products, function (product) {
+            sails.log.verbose("Product:", product);
+            return Product
+              .find({
+                upc: product.upc,
+                status: "available",
+                warehouse: req.body.warehouse
+              })
+              .limit(product.quantity)
+              .then(function (products) {
+                return Promise.map(products, function(p) {
+                  return Product
+                    .update({
+                        id: p.id
+                      },
+                      {
+                        status: "reserved"
+                      })
+                    .then(function (p) {
+                      sails.log.info(p);
+                      return p
+                    })
+                });
+              })
+          })
+          
+         
         })
   
        /**
         * Create an order
         */
         .then(function(products){
-          
+          sails.log.verbose("Create Order products:", products);
           return Order.create({
             products: products
           })
@@ -125,7 +141,8 @@ module.exports = {
                   },
                   {
                     order: order.id
-                  }).then(function(details){
+                  })
+                .then(function(details){
                       sails.log.verbose("Product updated:", details);
                   })
             })
