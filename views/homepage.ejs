@@ -27,7 +27,10 @@
   </div>
 </div>
 <script>
-  setTimeout(function () {
-    window.dispatchEvent(new Event('warehouse_list'));
-  }, 200);
+  window.onload(function () {
+    setTimeout(function () {
+      window.dispatchEvent(new Event('warehouse_list'));
+    }, 200);
+  })
+
 </script>
