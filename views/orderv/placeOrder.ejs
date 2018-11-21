@@ -84,7 +84,8 @@
   document.addEventListener("DOMContentLoaded", function(event) {
     window.dispatchEvent(new CustomEvent('warehouse_params', {
       detail: {
-        warehouse: "<%= warehouse%>"
+        warehouse: "<%= warehouse%>",
+        items: [{upc: null, quantity: 0},{upc: null, quantity: 0},{upc: null, quantity: 0}]
       }
     }));
   });

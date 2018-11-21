@@ -10,7 +10,7 @@
           <h4>Warehouses</h4>
           <hr></hr>
           <p>Please select a warehouse from the list below.</p>
-          <ul id="menu">
+          <ul id="menu" v-show="items.length" style="display: none">
             <li v-for="item in items">
               <a v-bind:href="'/warehouse/' + item.id">{{ item.name }}</a>
             </li>

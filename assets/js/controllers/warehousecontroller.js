@@ -6,7 +6,7 @@ let warehouseController = new Vue({
     debug: false,
     name: '',
     processing: false,
-    items: [{upc: null, quantity: 0},{upc: null, quantity: 0},{upc: null, quantity: 0}],
+    items: [],
     status: "",
     id: null,
     error: null,
@@ -204,11 +204,13 @@ let warehouseController = new Vue({
     params: function (event) {
       this.detail = event.detail;
       this.warehouse = event.detail.warehouse;
+      this.items = event.detail.items;
       console.log("warehouseId",this.warehouse);
     }
     
   }
 });
+
 window.addEventListener('warehouse_list', warehouseController.list);
 window.addEventListener('warehouse_findOne', warehouseController.findOne);
 window.addEventListener('warehouse_params', warehouseController.params);
