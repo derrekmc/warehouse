@@ -87,9 +87,9 @@ module.exports = {
           return res.badRequest("Warehouse Error: " + err.message);
         }
         
-        let result = [];
-        for(let item in data.body[0]){
-          let items = item.split(",");
+        var result = [];
+        for(var item in data.body[0]){
+          var items = item.split(",");
           result.push({
             upc: items[0],
             status: items[1],

@@ -58,7 +58,7 @@ module.exports = {
     });
     Warehouse
       .findOne(req.body.warehouse)
-
+      
       /**
        * Check if the warehouse id is valid before doing anything else
        */
@@ -67,104 +67,93 @@ module.exports = {
         sails.log.verbose("Warehouse:", warehouse);
         return warehouse;
       })
-        
+      
       /**
        * Loop through products and check if the quantity is available
        */
       .then(function(warehouse) {
         return Promise.each(req.body.products, function (product) {
-          sails.log.verbose("Product:", product);
-          
-          return Product
-            .count({
-              upc: product.upc,
-              status: "available",
-              warehouse: req.body.warehouse
-            })
-            .limit(product.quantity)
-            .then(function (count) {
-              if (count < product.quantity) throw "Quantity of " + product.quantity + " unavailable for UPC. " + product.upc + " only " + count + " available";
-              sails.log.verbose("Product Found and Available:", count, product.quantity);
-              return count;
-            })
-        })
-
-       /**
-        * Loop through products and set available orders to reserved
-        */
-        .then(function() {
-          
-          return Promise.each(req.body.products, function (product) {
             sails.log.verbose("Product:", product);
+            
             return Product
-              .find({
+              .count({
                 upc: product.upc,
                 status: "available",
                 warehouse: req.body.warehouse
               })
               .limit(product.quantity)
-              .then(function (products) {
-                return Promise.map(products, function(p) {
-                  return Product
-                    .update({
-                        id: p.id
-                      },
-                      {
-                        status: "reserved"
-                      })
-                    .then(function (p) {
-                      sails.log.info(p);
-                      return p
-                    })
-                });
+              .then(function (count) {
+                if (count < product.quantity) throw "Quantity of " + product.quantity + " unavailable for UPC. " + product.upc + " only " + count + " available";
+                sails.log.verbose("Product Found and Available:", count, product.quantity);
+                return count;
               })
           })
           
-         
-        })
-  
-       /**
-        * Create an order
-        */
-        .then(function(products){
-          sails.log.verbose("Create Order products:", products);
-          return Order.create({
-            products: products
-          })
-          .then(function(order){
-            sails.log.verbose("ORDER:", order);
-            sails.log.verbose("products:", products);
-            return Promise.map(products, function(product) {
-              return Product
-                .update({
-                    id: product.id
-                  },
-                  {
-                    order: order.id
-                  })
-                .then(function(details){
-                      sails.log.verbose("Product updated:", details);
-                  })
-            })
-            .then(function (products) {
-              sails.log.verbose("updated products:", products);
-              return order
-            })
-          })
+          /**
+           * Loop through products and set available orders to reserved
+           */
+          .then(function() {
             
-        })
+            return Promise.each(req.body.products, function (product) {
+              sails.log.verbose("Product:", product);
+              return Product
+                .find({
+                  upc: product.upc,
+                  status: "available",
+                  warehouse: req.body.warehouse
+                })
+                .limit(product.quantity)
+                .then(function (products) {
+                  return Promise.map(products, function(p) {
+                    return Product
+                      .update({
+                          id: p.id
+                        },
+                        {
+                          status: "reserved"
+                        })
+                      .then(function (p) {
+                        sails.log.info(p);
+                        return p[0]
+                      })
+                    })
   
-        /**
-         * Respond to request
-         */
-        .then(function(order){
-          sails.log.verbose("Order:", order);
-          res.ok(order);
-        })
+                    /**
+                     * Create an order
+                     */
+                    .then(function(products){
+                      sails.log.info("products", products);
+                      return Order.create({
+                        products: products
+                      })
+                    })
+
+
+                    /**
+                     * Respond to request
+                     */
+                    .then(function(order){
+                      sails.log.verbose("Order:", order);
+                      res.ok(order);
+                    })
+  
+
+                    
+                  
+                  
+                })
+            })
+            
+            
+          })
+          
+          
+          
           
         
+        
       })
-
+      
       /**
        * Catch any errors and respond with a bad request
        */
@@ -173,11 +162,11 @@ module.exports = {
   },
   
   shipOrder: function(req, res){
-  
+    
     const payload = {
       orderId: req.param("orderId")
     };
-  
+    
     Product
       .update(
         {order: payload.orderId},
@@ -199,8 +188,8 @@ module.exports = {
        * Catch any errors and respond with a bad request
        */
       .catch(res.badRequest);
-  
-  
+    
+    
     // sails.request('put /api/order/' + payload.orderId, {status:"shipped"}, function (err, data) {
     //   if(err) {
     //     return res.badRequest("Order shipping error: " + err.message);
