@@ -10,17 +10,29 @@
           <h3>
             {{name}} Warehouse
           </h3>
-          <p>Inventory Aggregation should go here</p>
+          <p>Inventory</p>
           <ul>
           <li v-for="item in inventory">
             <div class="col-sm-6" >UPC: {{ item.upc }}</div><div class="col-sm-6">{{ item.status }}: {{ item.count }}</div>
           </li>
           </ul>
-          <a v-bind:href="'/warehouse/' + warehouse + '/addInventory'"class="btn btn-success" >Add Inventory</a>
-          <!--<a v-bind:href="'/order/placeOrder'" class="btn btn-info">Place Order</a>-->
-          <a v-bind:href="'/warehouse/' + warehouse + '/placeOrder'" class="btn btn-info" >Place Order</a>
-          <a v-bind:href="'/warehouse/' + warehouse + '/openOrders'" class="btn btn-primary" >View Open Orders</a>
 
+
+
+          <div class="row form-group">
+            <div class="col">
+              <a v-bind:href="'/warehouse/' + warehouse + '/addInventory'"class="btn btn-success" >Add Inventory</a>
+              <a v-bind:href="'/warehouse/' + warehouse + '/placeOrder'" class="btn btn-info" >Place Order</a>
+            </div>
+          </div>
+
+
+          <!--<a v-bind:href="'/order/placeOrder'" class="btn btn-info">Place Order</a>-->
+          <div class="row form-group">
+            <div class="col">
+              <a v-bind:href="'/warehouse/' + warehouse + '/openOrders'" class="btn btn-primary " >View Open Orders</a>
+            </div>
+          </div>
           <br><br>
           <a href="/">< back</a>
 
